@@ -1,0 +1,219 @@
+{% extends 'main/base.html' %}
+    {% block link %}
+
+        <style>
+        *{
+            font-size: 10px;
+
+        }
+        </style>
+
+        <script>
+    //K:/Computer Science (My life)/My Work Station/Django/Project 2/PDFExtractor/media/pdf_files/Official_High_School_Transcript_X6eLk92.pdf
+        </script>
+    {% endblock %}
+{% block main %}
+
+{%  load static %}
+
+    <div>
+        <div class="container ">
+
+        </div>
+        <div  class="container">
+
+        </div>
+    </div>
+
+
+            <!-- Section: Split screen -->
+        <section class="">
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6 vh-100 " style="background-color: lavenderblush">
+                  <div class="text-center">
+                      <div class="font-weight-bold display-3 p6 text center">PDF ExTractor</div>
+                      <div class="p6" style="padding-top: 30px">
+                          <form method="POST" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                  {{ form.file }}
+                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+{#                          <button class="btn bg-primary"></button>#}
+                      </div>
+                        <div class="container " style="width: 100px; height: 20px" >
+{#                            <a href="{{ pdf }}"  width = "200" height = "240" style =" margin-left: auto; margin-right: auto; display: block;" class="btn btn-primary">View PDF</a>#}
+{#                            <embed scr="" type="application/pdf" width="50%" height="500px"/>#}
+{#                            <iframe src="{{ pdf }}" width="100%" height="500px"></iframe>#}
+{#                                <button id="pdfButton">View PDF</button>#}
+
+                        </div>
+                  <div style="padding-top: 50px">
+                      <iframe id="iframe_pdf" src="{{ pdf }}" style="width:800px; height:900px;" frameborder="0"></iframe>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-6 vh-150 " style="background-color: white">
+
+                  <div class="container-fluid" style="background-color: white">
+                    <div class="row">
+                        <div class="col-12  " style="background-color: #D9D9D9">
+                            <table  class="table">
+                                {% for i in dataframe.keys %}
+                                    {% if i == "OFFICIAL HIGH SCHOOL TRANSCRIPT" %}
+                                <tr class="row">
+                                    <td colspan="2" align="center" class="col" style="background-color: #000099; color: white"><b>{{ i }}</b></td>
+                                </tr>
+                                    {% endif %}
+
+
+                                {% endfor %}
+                                {% for j in dataframe.values %}
+                                            <tr class="row">
+                                                <td class="col">{{ j.0 }}</td>
+                                                <td class="col">{{ j.1 }}</td>
+                                            </tr>
+                                {% endfor %}
+                            <tr class="row">
+                                    <td colspan="2" align="center" class="col" style="background-color: #000099; color: white"><b>{{ record }}</b></td>
+                                </tr>
+                            </table>
+
+                      </div>
+                      <div class="col-6 vh-150 ">
+                            <table class="table table-hover" width="300px" style="margin-bottom: -3px">
+                                <tr class="row">
+                                    {% for i in header_list %}
+                                    <td class="col-7"><b>{{ i.0 }}</b></td>
+                                    <td class="col-3"><b>{{ i.1 }} {{ i.2 }}</b></td>
+                                    <td class="col-2"><b>{{ i.2 }}</b></td>
+                                    {% endfor %}
+                                </tr>
+                                {% for i in leftside %}
+                                    {% if not i.0 == 'nan' %}
+                                    <tr class="row">
+                                        <td class="col-8" style="height: 30px">{{ i.0 }}</td>
+                                        <td class="col-3" style="height: 30px">{{ i.1 }}</td>
+                                        <td class="col-1" style="height: 30px">{{ i.2 }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {%if i.1 == "11th Grade" %}
+                                        <tr class="row">
+                                            <td colspan="2" class="col">{{ i.0 }} {{ i.1 }}</td>
+                                        </tr>
+                                    {% endif %}
+                            {% endfor %}
+                         </table>
+
+                          <table class="table table-hover" width="300px">
+                                    <tr class="row">
+                                        <td class="col" colspan="4" align="center" style="background-color: #000099; color: white"><b>{{ bheader.4 }}</b></td>
+                                    </tr>
+
+                                    <tr class="row">
+                                        <td class="col">{{ bheader.0  }}</td>
+                                        <td class="col">{{ bheader.1 }}</td>
+                                        <td class="col">{{ bheader.2  }}</td>
+                                        <td class="col">{{ bheader.3  }}</td>
+
+
+                                    </tr>
+                                    {% for i in footer %}
+                                        {% if not i.0 == 'nan' %}
+                                        <tr class="row">
+                                            <td class="col-3">{{ i.0 }}</td>
+                                            <td class="col-3">{{ i.1 }}</td>
+                                            <td class="col-3">{{ i.2 }}</td>
+                                            <td class="col-3">{{ i.3 }}</td>
+{#                                            <td class="col-3">{{ i.4 }}</td>#}
+                                        </tr>
+                                        {% endif %}
+                                {% endfor %}
+                             </table>
+
+
+
+                      </div>
+                      <div class="col-6 vh-100 ">
+                          <table class="table table-hover" width="300px" style="margin-bottom: 7px">
+                                <tr class="row">
+                                {% for i in header_list %}
+                                <td class="col-8"><b>{{ i.0 }}</b></td>
+                                <td class="col-3"><b>{{ i.1 }} {{ i.2 }}</b></td>
+                                <td class="col-1"><b>{{ i.2 }}</b></td>
+                                {% endfor %}
+                            </tr>
+                            {% for i in rightside %}
+                                {% if not i.0 == 'nan' %}
+                                <tr class="row">
+                                    <td class="col-8" style="height: 30px">{{ i.0 }}</td>
+                                    <td class="col-3" style="height: 30px">{{ i.1 }}</td>
+                                    <td class="col-1" style="height: 30px">{{ i.2 }}</td>
+                                </tr>
+                                {% endif %}
+                                {%if i.1 == "11th Grade" %}
+                                    <tr class="row">
+                                        <td colspan="2" class="col">{{ i.0 }} {{ i.1 }}</td>
+                                    </tr>
+                                {% endif %}
+                        {% endfor %}
+                            </table>
+                                <table class="table " width="300px">
+                                        <tr class="row" style="padding-top: 20px" >
+                                            <td class="col" align="center" style="background-color: #000099; color: white"><b>{{ infotable.0}}</b></td>
+                                        </tr>
+                                        <tr class="row">
+                                        <td class="col">{{ infotable.1}}</td>
+
+                                    </tr>
+                                     <tr class="row">
+
+                                        <td class="col" > <span style="padding-left: 20px;border: none">{{ infotable.2 }}</span> </td>
+
+                                    </tr>
+                                     <tr class="row">
+                                        <td class="col border-none">{{ infotable.3 }} {{ infotable.4 }}</td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td class="col"><span style="padding-left: 25px">{{ infotable.5 }}</span></td>
+                                    </tr>
+                            </table>
+
+                      </div>
+
+
+                  </div>
+              </div>
+                     <div class="content-fluid" style="background-color: white">
+                       <table class="table table-borderless">
+                            <tr class="row text-center">
+                                <td class="col text-center">
+                                    <b>{{ signature.0 }}</b>
+                                </td>
+                            </tr>
+                           <tr class="row text-center">
+                                <td class="col text-center">
+                                    <b>{{ signature.1 }}</b>
+                                </td>
+                            </tr>
+                           <tr class="row">
+                                <td class="col" >
+                                    <span>{{ signature.2 }}</span> <span class="text-right" style="padding-left: 350px">{{ infotable.6 }}</span>
+                                </td>
+                            </tr>
+                           <tr class="row" style="padding-bottom: 30px">
+                                <td class="col">
+                                    <span style="padding-left: 20px">{{ signature.3 }}</span>
+                                </td>
+                            </tr>
+
+                        </table>
+                   </div>
+            </div>
+          </div>
+          </div>
+        </section>
+
+        <!-- Section: Split screen -->
+{% endblock %}

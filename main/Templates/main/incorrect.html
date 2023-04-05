@@ -1,0 +1,9 @@
+{% extends 'main/base.html' %}
+
+{% block link %}
+{% endblock %}
+
+{% block main %}
+    <p> <span class="display-2">400</span> Error, Your PDF has Incorrect Format. Please Submit Correct PDF in Correct format.</p>
+    <p><a href="{% url 'index' %}">Go back to home</a> </p>
+{% endblock %}
